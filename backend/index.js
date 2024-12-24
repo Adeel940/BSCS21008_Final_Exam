@@ -2,19 +2,19 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth');
+const taskRoutes = require('./routes/tasks'); // Import the task routes
 
-const app = express();
+const app = express(); // Initialize the Express app
+
+// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
-// Root route
-app.get('/', (req, res) => {
-  res.send('Welcome to the Task Management App Backend!');
-});
+// Routes
+app.use('/auth', authRoutes); // Authentication routes
+app.use('/tasks', taskRoutes); // Task management routes
 
-// Auth routes
-app.use('/auth', authRoutes);
-
+// Start the server
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
